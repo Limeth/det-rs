@@ -119,9 +119,11 @@ macro_rules! det_copy {
 
 #[macro_export]
 macro_rules! det_clone {
-    ($_00:expr) => {
-        det_copy!($_00.clone())
-    };
+    ($_00:expr) => {{
+        let _00 = $_00;
+
+        det_copy!(_00.clone())
+    }};
 
     ($tuple:expr, 1) => {{
         let ((_00,),) = $tuple;
@@ -130,10 +132,14 @@ macro_rules! det_clone {
     }};
 
     ($_00:expr, $_10:expr,
-     $_01:expr, $_11:expr) => {
-        det_copy!($_00.clone(), $_10.clone(),
-                  $_01.clone(), $_11.clone())
-    };
+     $_01:expr, $_11:expr) => {{
+        let (_00, _10,
+             _01, _11) = ($_00, $_10,
+                          $_01, $_11);
+
+        det_copy!(_00.clone(), _10.clone(),
+                  _01.clone(), _11.clone())
+    }};
 
     ($tuple:expr, 2) => {{
         let ((_00, _10),
@@ -145,11 +151,17 @@ macro_rules! det_clone {
 
     ($_00:expr, $_10:expr, $_20:expr,
      $_01:expr, $_11:expr, $_21:expr,
-     $_02:expr, $_12:expr, $_22:expr) => {
-        det_copy!($_00.clone(), $_10.clone(), $_20.clone(),
-                  $_01.clone(), $_11.clone(), $_21.clone(),
-                  $_02.clone(), $_12.clone(), $_22.clone())
-    };
+     $_02:expr, $_12:expr, $_22:expr) => {{
+        let (_00, _10, _20,
+             _01, _11, _21,
+             _02, _12, _22) = ($_00, $_10, $_20,
+                               $_01, $_11, $_21,
+                               $_02, $_12, $_22);
+
+        det_copy!(_00.clone(), _10.clone(), _20.clone(),
+                  _01.clone(), _11.clone(), _21.clone(),
+                  _02.clone(), _12.clone(), _22.clone())
+    }};
 
     ($tuple:expr, 3) => {{
         let ((_00, _10, _20),
@@ -164,12 +176,20 @@ macro_rules! det_clone {
     ($_00:expr, $_10:expr, $_20:expr, $_30:expr,
      $_01:expr, $_11:expr, $_21:expr, $_31:expr,
      $_02:expr, $_12:expr, $_22:expr, $_32:expr,
-     $_03:expr, $_13:expr, $_23:expr, $_33:expr) => {
-        det_copy!($_00.clone(), $_10.clone(), $_20.clone(), $_30.clone(),
-                  $_01.clone(), $_11.clone(), $_21.clone(), $_31.clone(),
-                  $_02.clone(), $_12.clone(), $_22.clone(), $_32.clone(),
-                  $_03.clone(), $_13.clone(), $_23.clone(), $_33.clone())
-    };
+     $_03:expr, $_13:expr, $_23:expr, $_33:expr) => {{
+        let (_00, _10, _20, _30,
+             _01, _11, _21, _31,
+             _02, _12, _22, _32,
+             _03, _13, _23, _33) = ($_00, $_10, $_20, $_30,
+                                    $_01, $_11, $_21, $_31,
+                                    $_02, $_12, $_22, $_32,
+                                    $_03, $_13, $_23, $_33);
+
+        det_copy!(_00.clone(), _10.clone(), _20.clone(), _30.clone(),
+                  _01.clone(), _11.clone(), _21.clone(), _31.clone(),
+                  _02.clone(), _12.clone(), _22.clone(), _32.clone(),
+                  _03.clone(), _13.clone(), _23.clone(), _33.clone())
+    }};
 
     ($tuple:expr, 4) => {{
         let ((_00, _10, _20, _30),
@@ -187,13 +207,23 @@ macro_rules! det_clone {
      $_01:expr, $_11:expr, $_21:expr, $_31:expr, $_41:expr,
      $_02:expr, $_12:expr, $_22:expr, $_32:expr, $_42:expr,
      $_03:expr, $_13:expr, $_23:expr, $_33:expr, $_43:expr,
-     $_04:expr, $_14:expr, $_24:expr, $_34:expr, $_44:expr) => {
-        det_copy!($_00.clone(), $_10.clone(), $_20.clone(), $_30.clone(), $_40.clone(),
-                  $_01.clone(), $_11.clone(), $_21.clone(), $_31.clone(), $_41.clone(),
-                  $_02.clone(), $_12.clone(), $_22.clone(), $_32.clone(), $_42.clone(),
-                  $_03.clone(), $_13.clone(), $_23.clone(), $_33.clone(), $_43.clone(),
-                  $_04.clone(), $_14.clone(), $_24.clone(), $_34.clone(), $_44.clone())
-    };
+     $_04:expr, $_14:expr, $_24:expr, $_34:expr, $_44:expr) => {{
+        let (_00, _10, _20, _30, _40,
+             _01, _11, _21, _31, _41,
+             _02, _12, _22, _32, _42,
+             _03, _13, _23, _33, _43,
+             _04, _14, _24, _34, _44) = ($_00, $_10, $_20, $_30, $_40,
+                                         $_01, $_11, $_21, $_31, $_41,
+                                         $_02, $_12, $_22, $_32, $_42,
+                                         $_03, $_13, $_23, $_33, $_43,
+                                         $_04, $_14, $_24, $_34, $_44);
+
+        det_copy!(_00.clone(), _10.clone(), _20.clone(), _30.clone(), _40.clone(),
+                  _01.clone(), _11.clone(), _21.clone(), _31.clone(), _41.clone(),
+                  _02.clone(), _12.clone(), _22.clone(), _32.clone(), _42.clone(),
+                  _03.clone(), _13.clone(), _23.clone(), _33.clone(), _43.clone(),
+                  _04.clone(), _14.clone(), _24.clone(), _34.clone(), _44.clone())
+    }};
 
     ($tuple:expr, 5) => {{
         let ((_00, _10, _20, _30, _40),
