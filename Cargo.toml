@@ -1,4 +1,16 @@
 [package]
 name = "det"
 version = "0.1.0"
+description = "Calculate the determinant using a macro"
+license = "MIT/Unlicense"
 authors = ["Jakub Hlusička <jakub.hlusicka@email.cz>"]
+repository = "https://github.com/Limeth/det-rs"
+keywords = ["math", "algebra", "macro", "vector"]
+readme = "README.md"
+include = [
+    "**/*.rs",
+    "Cargo.toml",
+    "README.md",
+    "LICENSE-MIT",
+    "UNLICENSE",
+]
