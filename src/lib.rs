@@ -824,78 +824,78 @@ mod tests {
     #[test]
     fn det_5_copy() {
         assert_eq! {
-            det_copy!(1,  2,  3,  4,  5,
-                      6,  7,  8,  9,  10,
-                      11, 12, 13, 14, 15,
-                      16, 17, 18, 19, 20,
-                      21, 22, 23, 24, 25),
-            0
+            det_copy!(1, 2, 3, 4, 5,
+                      3, 0, 4, 5, 6,
+                      2, 1, 2, 3, 4,
+                      0, 0, 0, 6, 5,
+                      0, 0, 0, 5, 6),
+            99
         }
     }
 
     #[test]
     fn det_5_copy_tuple() {
-        let tuple = ((1,  2,  3,  4,  5 ),
-                     (6,  7,  8,  9,  10),
-                     (11, 12, 13, 14, 15),
-                     (16, 17, 18, 19, 20),
-                     (21, 22, 23, 24, 25));
+        let tuple = ((1, 2, 3, 4, 5),
+                     (3, 0, 4, 5, 6),
+                     (2, 1, 2, 3, 4),
+                     (0, 0, 0, 6, 5),
+                     (0, 0, 0, 5, 6));
 
         assert_eq! {
             det_copy!(tuple, 5),
-            0
+            99
         }
     }
 
     #[test]
     fn det_5_clone() {
         assert_eq! {
-            det_clone!(Cloneable(1),  Cloneable(2),  Cloneable(3),  Cloneable(4),  Cloneable(5),
-                       Cloneable(6),  Cloneable(7),  Cloneable(8),  Cloneable(9),  Cloneable(10),
-                       Cloneable(11), Cloneable(12), Cloneable(13), Cloneable(14), Cloneable(15),
-                       Cloneable(16), Cloneable(17), Cloneable(18), Cloneable(19), Cloneable(20),
-                       Cloneable(21), Cloneable(22), Cloneable(23), Cloneable(24), Cloneable(25)),
-            Cloneable(0)
+            det_clone!(Cloneable(1), Cloneable(2), Cloneable(3), Cloneable(4), Cloneable(5),
+                       Cloneable(3), Cloneable(0), Cloneable(4), Cloneable(5), Cloneable(6),
+                       Cloneable(2), Cloneable(1), Cloneable(2), Cloneable(3), Cloneable(4),
+                       Cloneable(0), Cloneable(0), Cloneable(0), Cloneable(6), Cloneable(5),
+                       Cloneable(0), Cloneable(0), Cloneable(0), Cloneable(5), Cloneable(6)),
+            Cloneable(99)
         }
     }
 
     #[test]
     fn det_5_clone_tuple() {
-        let tuple = ((Cloneable(1),  Cloneable(2),  Cloneable(3),  Cloneable(4),  Cloneable(5) ),
-                     (Cloneable(6),  Cloneable(7),  Cloneable(8),  Cloneable(9),  Cloneable(10)),
-                     (Cloneable(11), Cloneable(12), Cloneable(13), Cloneable(14), Cloneable(15)),
-                     (Cloneable(16), Cloneable(17), Cloneable(18), Cloneable(19), Cloneable(20)),
-                     (Cloneable(21), Cloneable(22), Cloneable(23), Cloneable(24), Cloneable(25)));
+        let tuple = ((Cloneable(1), Cloneable(2), Cloneable(3), Cloneable(4), Cloneable(5)),
+                     (Cloneable(3), Cloneable(0), Cloneable(4), Cloneable(5), Cloneable(6)),
+                     (Cloneable(2), Cloneable(1), Cloneable(2), Cloneable(3), Cloneable(4)),
+                     (Cloneable(0), Cloneable(0), Cloneable(0), Cloneable(6), Cloneable(5)),
+                     (Cloneable(0), Cloneable(0), Cloneable(0), Cloneable(5), Cloneable(6)));
 
         assert_eq! {
             det_clone!(tuple, 5),
-            Cloneable(0)
+            Cloneable(99)
         }
     }
 
     #[test]
     fn det_5() {
         assert_eq! {
-            det!(NonCopy(1),  NonCopy(2),  NonCopy(3),  NonCopy(4),  NonCopy(5),
-                 NonCopy(6),  NonCopy(7),  NonCopy(8),  NonCopy(9),  NonCopy(10),
-                 NonCopy(11), NonCopy(12), NonCopy(13), NonCopy(14), NonCopy(15),
-                 NonCopy(16), NonCopy(17), NonCopy(18), NonCopy(19), NonCopy(20),
-                 NonCopy(21), NonCopy(22), NonCopy(23), NonCopy(24), NonCopy(25)),
-            NonCopy(0)
+            det!(NonCopy(1), NonCopy(2), NonCopy(3), NonCopy(4), NonCopy(5),
+                 NonCopy(3), NonCopy(0), NonCopy(4), NonCopy(5), NonCopy(6),
+                 NonCopy(2), NonCopy(1), NonCopy(2), NonCopy(3), NonCopy(4),
+                 NonCopy(0), NonCopy(0), NonCopy(0), NonCopy(6), NonCopy(5),
+                 NonCopy(0), NonCopy(0), NonCopy(0), NonCopy(5), NonCopy(6)),
+            NonCopy(99)
         }
     }
 
     #[test]
     fn det_5_tuple() {
-        let tuple = ((NonCopy(1),  NonCopy(2),  NonCopy(3),  NonCopy(4),  NonCopy(5) ),
-                     (NonCopy(6),  NonCopy(7),  NonCopy(8),  NonCopy(9),  NonCopy(10)),
-                     (NonCopy(11), NonCopy(12), NonCopy(13), NonCopy(14), NonCopy(15)),
-                     (NonCopy(16), NonCopy(17), NonCopy(18), NonCopy(19), NonCopy(20)),
-                     (NonCopy(21), NonCopy(22), NonCopy(23), NonCopy(24), NonCopy(25)));
+        let tuple = ((NonCopy(1), NonCopy(2), NonCopy(3), NonCopy(4), NonCopy(5)),
+                     (NonCopy(3), NonCopy(0), NonCopy(4), NonCopy(5), NonCopy(6)),
+                     (NonCopy(2), NonCopy(1), NonCopy(2), NonCopy(3), NonCopy(4)),
+                     (NonCopy(0), NonCopy(0), NonCopy(0), NonCopy(6), NonCopy(5)),
+                     (NonCopy(0), NonCopy(0), NonCopy(0), NonCopy(5), NonCopy(6)));
 
         assert_eq! {
             det!(tuple, 5),
-            NonCopy(0)
+            NonCopy(99)
         }
     }
 
