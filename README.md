@@ -21,7 +21,7 @@ pub fn find_orthonormal_4(a: &Vector4<f32>, b: &Vector4<f32>, c: &Vector4<f32>) 
               c.x,          c.y,          c.z,          c.w         )
 }
 ```
-Usually in this case `det!` should be used, but strangely it causes a type recursion error,
+Usually `det!` should be used in these cases, but strangely, it causes a type recursion error,
 so we use `det_copy!` instead. Note, that the constructors (eg. `Vector4::x()`) are executed multiple times.
 To avoid this, bind the vectors to a variable first and pass in the variable instead.
 
