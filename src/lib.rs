@@ -74,6 +74,47 @@ macro_rules! det_copy {
                   _02, _12, _22, _32,
                   _03, _13, _23, _33)
     }};
+
+    ($_00:expr, $_10:expr, $_20:expr, $_30:expr, $_40:expr,
+     $_01:expr, $_11:expr, $_21:expr, $_31:expr, $_41:expr,
+     $_02:expr, $_12:expr, $_22:expr, $_32:expr, $_42:expr,
+     $_03:expr, $_13:expr, $_23:expr, $_33:expr, $_43:expr,
+     $_04:expr, $_14:expr, $_24:expr, $_34:expr, $_44:expr) => {
+          $_00 * det_copy!($_11, $_21, $_31, $_41,
+                           $_12, $_22, $_32, $_42,
+                           $_13, $_23, $_33, $_43,
+                           $_14, $_24, $_34, $_44)
+        - $_10 * det_copy!($_01, $_21, $_31, $_41,
+                           $_02, $_22, $_32, $_42,
+                           $_03, $_23, $_33, $_43,
+                           $_04, $_24, $_34, $_44)
+        + $_20 * det_copy!($_01, $_11, $_31, $_41,
+                           $_02, $_12, $_32, $_42,
+                           $_03, $_13, $_33, $_43,
+                           $_04, $_14, $_34, $_44)
+        - $_30 * det_copy!($_01, $_11, $_21, $_41,
+                           $_02, $_12, $_22, $_42,
+                           $_03, $_13, $_23, $_43,
+                           $_04, $_14, $_24, $_44)
+        + $_40 * det_copy!($_01, $_11, $_21, $_31,
+                           $_02, $_12, $_22, $_32,
+                           $_03, $_13, $_23, $_33,
+                           $_04, $_14, $_24, $_34)
+    };
+
+    ($tuple:expr, 5) => {{
+        let ((_00, _10, _20, _30, _40),
+             (_01, _11, _21, _31, _41),
+             (_02, _12, _22, _32, _42),
+             (_03, _13, _23, _33, _43),
+             (_04, _14, _24, _34, _44)) = $tuple;
+
+        det_copy!(_00, _10, _20, _30, _40,
+                  _01, _11, _21, _31, _41,
+                  _02, _12, _22, _32, _42,
+                  _03, _13, _23, _33, _43,
+                  _04, _14, _24, _34, _44)
+    }};
 }
 
 #[macro_export]
@@ -89,10 +130,10 @@ macro_rules! det_clone {
     }};
 
     ($_00:expr, $_10:expr,
-     $_01:expr, $_11:expr) => {{
+     $_01:expr, $_11:expr) => {
         det_copy!($_00.clone(), $_10.clone(),
                   $_01.clone(), $_11.clone())
-    }};
+    };
 
     ($tuple:expr, 2) => {{
         let ((_00, _10),
@@ -104,11 +145,11 @@ macro_rules! det_clone {
 
     ($_00:expr, $_10:expr, $_20:expr,
      $_01:expr, $_11:expr, $_21:expr,
-     $_02:expr, $_12:expr, $_22:expr) => {{
+     $_02:expr, $_12:expr, $_22:expr) => {
         det_copy!($_00.clone(), $_10.clone(), $_20.clone(),
                   $_01.clone(), $_11.clone(), $_21.clone(),
                   $_02.clone(), $_12.clone(), $_22.clone())
-    }};
+    };
 
     ($tuple:expr, 3) => {{
         let ((_00, _10, _20),
@@ -123,12 +164,12 @@ macro_rules! det_clone {
     ($_00:expr, $_10:expr, $_20:expr, $_30:expr,
      $_01:expr, $_11:expr, $_21:expr, $_31:expr,
      $_02:expr, $_12:expr, $_22:expr, $_32:expr,
-     $_03:expr, $_13:expr, $_23:expr, $_33:expr) => {{
+     $_03:expr, $_13:expr, $_23:expr, $_33:expr) => {
         det_copy!($_00.clone(), $_10.clone(), $_20.clone(), $_30.clone(),
                   $_01.clone(), $_11.clone(), $_21.clone(), $_31.clone(),
                   $_02.clone(), $_12.clone(), $_22.clone(), $_32.clone(),
                   $_03.clone(), $_13.clone(), $_23.clone(), $_33.clone())
-    }};
+    };
 
     ($tuple:expr, 4) => {{
         let ((_00, _10, _20, _30),
@@ -140,6 +181,32 @@ macro_rules! det_clone {
                   _01.clone(), _11.clone(), _21.clone(), _31.clone(),
                   _02.clone(), _12.clone(), _22.clone(), _32.clone(),
                   _03.clone(), _13.clone(), _23.clone(), _33.clone())
+    }};
+
+    ($_00:expr, $_10:expr, $_20:expr, $_30:expr, $_40:expr,
+     $_01:expr, $_11:expr, $_21:expr, $_31:expr, $_41:expr,
+     $_02:expr, $_12:expr, $_22:expr, $_32:expr, $_42:expr,
+     $_03:expr, $_13:expr, $_23:expr, $_33:expr, $_43:expr,
+     $_04:expr, $_14:expr, $_24:expr, $_34:expr, $_44:expr) => {
+        det_copy!($_00.clone(), $_10.clone(), $_20.clone(), $_30.clone(), $_40.clone(),
+                  $_01.clone(), $_11.clone(), $_21.clone(), $_31.clone(), $_41.clone(),
+                  $_02.clone(), $_12.clone(), $_22.clone(), $_32.clone(), $_42.clone(),
+                  $_03.clone(), $_13.clone(), $_23.clone(), $_33.clone(), $_43.clone(),
+                  $_04.clone(), $_14.clone(), $_24.clone(), $_34.clone(), $_44.clone())
+    };
+
+    ($tuple:expr, 5) => {{
+        let ((_00, _10, _20, _30, _40),
+             (_01, _11, _21, _31, _41),
+             (_02, _12, _22, _32, _42),
+             (_03, _13, _23, _33, _43),
+             (_04, _14, _24, _34, _44)) = $tuple;
+
+        det_copy!(_00.clone(), _10.clone(), _20.clone(), _30.clone(), _40.clone(),
+                  _01.clone(), _11.clone(), _21.clone(), _31.clone(), _41.clone(),
+                  _02.clone(), _12.clone(), _22.clone(), _32.clone(), _42.clone(),
+                  _03.clone(), _13.clone(), _23.clone(), _33.clone(), _43.clone(),
+                  _04.clone(), _14.clone(), _24.clone(), _34.clone(), _44.clone())
     }};
 }
 
@@ -227,6 +294,42 @@ macro_rules! det {
                    (&_01, &_11, &_21, &_31),
                    (&_02, &_12, &_22, &_32),
                    (&_03, &_13, &_23, &_33)), 4)
+    }};
+
+    ($_00:expr, $_10:expr, $_20:expr, $_30:expr, $_40:expr,
+     $_01:expr, $_11:expr, $_21:expr, $_31:expr, $_41:expr,
+     $_02:expr, $_12:expr, $_22:expr, $_32:expr, $_42:expr,
+     $_03:expr, $_13:expr, $_23:expr, $_33:expr, $_43:expr,
+     $_04:expr, $_14:expr, $_24:expr, $_34:expr, $_44:expr) => {{
+        let (_00, _10, _20, _30, _40,
+             _01, _11, _21, _31, _41,
+             _02, _12, _22, _32, _42,
+             _03, _13, _23, _33, _43,
+             _04, _14, _24, _34, _44) = ($_00, $_10, $_20, $_30, $_40,
+                                         $_01, $_11, $_21, $_31, $_41,
+                                         $_02, $_12, $_22, $_32, $_42,
+                                         $_03, $_13, $_23, $_33, $_43,
+                                         $_04, $_14, $_24, $_34, $_44);
+
+        det_copy!(&_00, &_10, &_20, &_30, &_40,
+                  &_01, &_11, &_21, &_31, &_41,
+                  &_02, &_12, &_22, &_32, &_42,
+                  &_03, &_13, &_23, &_33, &_43,
+                  &_04, &_14, &_24, &_34, &_44)
+    }};
+
+    ($tuple:expr, 5) => {{
+        let ((_00, _10, _20, _30, _40),
+             (_01, _11, _21, _31, _41),
+             (_02, _12, _22, _32, _42),
+             (_03, _13, _23, _33, _43),
+             (_04, _14, _24, _34, _44)) = $tuple;
+
+        det_copy!(((&_00, &_10, &_20, &_30, &_40),
+                   (&_01, &_11, &_21, &_31, &_41),
+                   (&_02, &_12, &_22, &_32, &_42),
+                   (&_03, &_13, &_23, &_33, &_43),
+                   (&_04, &_14, &_24, &_34, &_44)), 5)
     }};
 }
 
@@ -546,6 +649,84 @@ mod tests {
 
         assert_eq! {
             det!(tuple, 4),
+            NonCopy(0)
+        }
+    }
+
+    #[test]
+    fn det_5_copy() {
+        assert_eq! {
+            det_copy!(1,  2,  3,  4,  5,
+                      6,  7,  8,  9,  10,
+                      11, 12, 13, 14, 15,
+                      16, 17, 18, 19, 20,
+                      21, 22, 23, 24, 25),
+            0
+        }
+    }
+
+    #[test]
+    fn det_5_copy_tuple() {
+        let tuple = ((1,  2,  3,  4,  5 ),
+                     (6,  7,  8,  9,  10),
+                     (11, 12, 13, 14, 15),
+                     (16, 17, 18, 19, 20),
+                     (21, 22, 23, 24, 25));
+
+        assert_eq! {
+            det_copy!(tuple, 5),
+            0
+        }
+    }
+
+    #[test]
+    fn det_5_clone() {
+        assert_eq! {
+            det_clone!(Cloneable(1),  Cloneable(2),  Cloneable(3),  Cloneable(4),  Cloneable(5),
+                       Cloneable(6),  Cloneable(7),  Cloneable(8),  Cloneable(9),  Cloneable(10),
+                       Cloneable(11), Cloneable(12), Cloneable(13), Cloneable(14), Cloneable(15),
+                       Cloneable(16), Cloneable(17), Cloneable(18), Cloneable(19), Cloneable(20),
+                       Cloneable(21), Cloneable(22), Cloneable(23), Cloneable(24), Cloneable(25)),
+            Cloneable(0)
+        }
+    }
+
+    #[test]
+    fn det_5_clone_tuple() {
+        let tuple = ((Cloneable(1),  Cloneable(2),  Cloneable(3),  Cloneable(4),  Cloneable(5) ),
+                     (Cloneable(6),  Cloneable(7),  Cloneable(8),  Cloneable(9),  Cloneable(10)),
+                     (Cloneable(11), Cloneable(12), Cloneable(13), Cloneable(14), Cloneable(15)),
+                     (Cloneable(16), Cloneable(17), Cloneable(18), Cloneable(19), Cloneable(20)),
+                     (Cloneable(21), Cloneable(22), Cloneable(23), Cloneable(24), Cloneable(25)));
+
+        assert_eq! {
+            det_clone!(tuple, 5),
+            Cloneable(0)
+        }
+    }
+
+    #[test]
+    fn det_5() {
+        assert_eq! {
+            det!(NonCopy(1),  NonCopy(2),  NonCopy(3),  NonCopy(4),  NonCopy(5),
+                 NonCopy(6),  NonCopy(7),  NonCopy(8),  NonCopy(9),  NonCopy(10),
+                 NonCopy(11), NonCopy(12), NonCopy(13), NonCopy(14), NonCopy(15),
+                 NonCopy(16), NonCopy(17), NonCopy(18), NonCopy(19), NonCopy(20),
+                 NonCopy(21), NonCopy(22), NonCopy(23), NonCopy(24), NonCopy(25)),
+            NonCopy(0)
+        }
+    }
+
+    #[test]
+    fn det_5_tuple() {
+        let tuple = ((NonCopy(1),  NonCopy(2),  NonCopy(3),  NonCopy(4),  NonCopy(5) ),
+                     (NonCopy(6),  NonCopy(7),  NonCopy(8),  NonCopy(9),  NonCopy(10)),
+                     (NonCopy(11), NonCopy(12), NonCopy(13), NonCopy(14), NonCopy(15)),
+                     (NonCopy(16), NonCopy(17), NonCopy(18), NonCopy(19), NonCopy(20)),
+                     (NonCopy(21), NonCopy(22), NonCopy(23), NonCopy(24), NonCopy(25)));
+
+        assert_eq! {
+            det!(tuple, 5),
             NonCopy(0)
         }
     }
